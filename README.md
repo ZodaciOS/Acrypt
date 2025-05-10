@@ -13,6 +13,9 @@ Acrypt is a tweak for jailbroken devices on iOS 14 - 16.6.1 designed to encrypt 
 It's sole purpose is to lock personal apps such as your freaky photos or your hidden snapchat top best friends list. Regardless of the
 reason, you can use install here!
 
+
+
+
 # Table of Contents
 - [Installing](#installing)
 - [Requirements](#requirements)
