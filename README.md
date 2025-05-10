@@ -8,7 +8,7 @@
 This tweak is still in development & not released.
 
 
-<H1 align="Introduction">Acrypt</H1>
+<H1 align="center">Introduction</H1>
 
 <img src="https://github.com/ZodaciOS/Acrypt/blob/main/94288D3E-2E15-4C83-90C0-4EBEDA40F719.jpeg" align="left" width="150" height="150" alt="litera1n logo">
 
