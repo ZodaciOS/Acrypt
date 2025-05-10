@@ -1,9 +1,6 @@
 <H1 align="center">Acrypt</H1>
 
-<img src="https://github.com/oxytog/litera1n/blob/main/Customize%20your%20device%2C%20your%20way.png">
-
-
-<H2 align="center">Disclaimer</H2>
+<H1 align="center">Disclaimer</H2>
 
 This tweak is still in development & not released.
 
