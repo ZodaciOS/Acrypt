@@ -12,7 +12,7 @@ This tweak is still in development & not released.
 Acrypt is a tweak for jailbroken devices on iOS 14 - 16.6.1 designed to encrypt apps using Passcode/Face ID or Touch ID.
 It's sole purpose is to lock personal apps such as your freaky photos or your hidden snapchat top best friends list.
 
-
+Acrypt was meant to be a regularly updated version of BioProtect & cheaper.
 
 
 # Table of Contents
