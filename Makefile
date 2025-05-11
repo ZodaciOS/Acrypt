@@ -13,6 +13,8 @@ Acrypt_FRAMEWORKS = UIKit LocalAuthentication # Apple frameworks we need
 Acrypt_PRIVATE_FRAMEWORKS = Preferences       # Private Apple frameworks
 Acrypt_EXTRA_FRAMEWORKS = AppList             # Third-party frameworks
 Acrypt_INSTALL_PATH = /var/jb/Library/TweakInject  # Rootless install path
+Acrypt_PRIVATE_FRAMEWORKS += SpringBoardServices FrontBoard
+Acrypt_EXTRA_FRAMEWORKS += ElleKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
