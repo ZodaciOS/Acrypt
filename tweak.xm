@@ -1,10 +1,9 @@
-// Tweak.xm
 #import <UIKit/UIKit.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
-#import <ElleKit/ElleKit.h> // Modern hooking framework
+#import <ElleKit/ElleKit.h>
 
-// Keychain Helper Functions
+// Keychain Helper (unchanged)
 BOOL savePasscodeToKeychain(NSString *bundleID, NSString *passcode) {
     NSDictionary *query = @{
         (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
@@ -28,23 +27,17 @@ NSString *getPasscodeFromKeychain(NSString *bundleID) {
     return result ? [[NSString alloc] initWithData:(__bridge NSData *)result encoding:NSUTF8StringEncoding] : nil;
 }
 
-// Hooking with ElleKit - Modern syntax
-EK_HOOK(SBApplicationController)
-+ (BOOL)deviceHasTouchID {
-    LAContext *context = [[LAContext alloc] init];
-    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil] && 
-           [context biometryType] == LABiometryTypeTouchID;
-}
-
-+ (BOOL)deviceHasFaceID {
-    LAContext *context = [[LAContext alloc] init];
-    return [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:nil] && 
-           [context biometryType] == LABiometryTypeFaceID;
-}
-EK_END
-
+// Hook SpringBoard to prevent app launches from ANYWHERE
 EK_HOOK(SBApplication)
-- (void)launchFromSource:(int)source {
+- (void)launchFromSource:(int)source animated:(BOOL)animated {
+    [self checkAndBlockLaunch];
+}
+
+- (void)launchFromLocation:(int)location animated:(BOOL)animated {
+    [self checkAndBlockLaunch];
+}
+
+- (void)checkAndBlockLaunch {
     NSString *bundleID = self.bundleIdentifier;
     NSString *passcode = getPasscodeFromKeychain(bundleID);
     NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:@"/var/jb/var/mobile/Library/Preferences/com.yourname.applocker.plist"];
@@ -52,55 +45,51 @@ EK_HOOK(SBApplication)
     if (passcode && [prefs[@"enabled"] boolValue]) {
         LAContext *context = [[LAContext alloc] init];
         
-        if (([prefs[@"useTouchID"] boolValue] && [SBApplicationController deviceHasTouchID]) || 
-            ([prefs[@"useFaceID"] boolValue] && [SBApplicationController deviceHasFaceID])) {
+        if (([prefs[@"useTouchID"] boolValue] && [%c(SBApplicationController) deviceHasTouchID]) || 
+            ([prefs[@"useFaceID"] boolValue] && [%c(SBApplicationController) deviceHasFaceID])) {
+            
+            __block BOOL authSuccess = NO;
+            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+            
             [context evaluatePolicy:LAPolicyDeviceOwnerAuthentication
                     localizedReason:@"Unlock App"
                               reply:^(BOOL success, NSError *error) {
-                if (success) EK_ORIG(void, source);
-                else if ([prefs[@"usePasscode"] boolValue]) [self showPasscodePrompt];
+                authSuccess = success;
+                dispatch_semaphore_signal(sema);
             }];
+            
+            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+            
+            if (!authSuccess && [prefs[@"usePasscode"] boolValue]) {
+                [self showPasscodePrompt];
+            }
         } else if ([prefs[@"usePasscode"] boolValue]) {
             [self showPasscodePrompt];
-        } else {
-            EK_ORIG(void, source);
         }
     } else {
-        EK_ORIG(void, source);
+        EK_ORIG(void, 0); // Allow launch if not locked
     }
-}
-
-- (void)showPasscodePrompt {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Enter Passcode"
-                                                                 message:nil
-                                                          preferredStyle:UIAlertControllerStyleAlert];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.secureTextEntry = YES;
-        textField.placeholder = @"Passcode";
-    }];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        if ([alert.textFields.firstObject.text isEqualToString:getPasscodeFromKeychain(self.bundleIdentifier)]) {
-            EK_ORIG(void, 0); // Continue launch
-        } else {
-            // Show error
-            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Wrong Passcode"
-                                                                              message:nil
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-            [errorAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:errorAlert animated:YES completion:nil];
-        }
-    }]];
-    
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 EK_END
 
-// Initialize ElleKit when tweak loads
-__attribute__((constructor)) static void init() {
-    EK_INIT();
-    EK_REGISTER(SBApplicationController);
-    EK_REGISTER(SBApplication);
-    NSLog(@"AppLocker loaded successfully!");
+// Hook icon launches
+EK_HOOK(SBIconController)
+- (void)launchIcon:(id)icon {
+    NSString *bundleID = [icon applicationBundleID];
+    if ([self isAppLocked:bundleID]) {
+        return; // Block launch
+    }
+    EK_ORIG(void, icon);
 }
+EK_END
+
+// Hook App Library
+EK_HOOK(SBAppSwitcherController)
+- (void)launchAppFromAppSwitcher:(id)app {
+    NSString *bundleID = [app bundleIdentifier];
+    if ([self isAppLocked:bundleID]) {
+        return; // Block launch
+    }
+    EK_ORIG(void, app);
+}
+EK_END
