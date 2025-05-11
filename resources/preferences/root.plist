@@ -4,63 +4,16 @@
 <dict>
     <key>items</key>
     <array>
-        <!-- Master Switch -->
         <dict>
             <key>cell</key>
             <string>PSSwitchCell</string>
             <key>label</key>
-            <string>Enable AppLocker</string>
+            <string>Enable Acrypt</string>
             <key>key</key>
             <string>enabled</string>
             <key>default</key>
             <true/>
         </dict>
-
-        <!-- Authentication Section -->
-        <dict>
-            <key>cell</key>
-            <string>PSGroupCell</string>
-            <key>label</key>
-            <string>Authentication</string>
-        </dict>
-        <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>label</key>
-            <string>Enable Touch ID</string>
-            <key>key</key>
-            <string>useTouchID</string>
-            <key>default</key>
-            <false/>
-            <key>requires</key>
-            <string>enabled == 1</string>
-        </dict>
-        <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>label</key>
-            <string>Enable Face ID</string>
-            <key>key</key>
-            <string>useFaceID</string>
-            <key>default</key>
-            <false/>
-            <key>requires</key>
-            <string>enabled == 1</string>
-        </dict>
-        <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>label</key>
-            <string>Enable Passcode</string>
-            <key>key</key>
-            <string>usePasscode</string>
-            <key>default</key>
-            <true/>
-            <key>requires</key>
-            <string>enabled == 1</string>
-        </dict>
-
-        <!-- App Selection -->
         <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
@@ -78,26 +31,6 @@
             <string>lockedApps</string>
             <key>isController</key>
             <true/>
-            <key>requires</key>
-            <string>enabled == 1</string>
-        </dict>
-
-        <!-- Respring Button -->
-        <dict>
-            <key>cell</key>
-            <string>PSButtonCell</string>
-            <key>label</key>
-            <string>Respring</string>
-            <key>action</key>
-            <string>respring</string>
-        </dict>
-
-        <!-- Credits Section -->
-        <dict>
-            <key>cell</key>
-            <string>PSGroupCell</string>
-            <key>footerText</key>
-            <string>AppLocker v1.0 · Developed by ZodaciOS</string>
         </dict>
     </array>
     <key>title</key>
