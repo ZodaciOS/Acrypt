@@ -38,3 +38,7 @@ Still in development.
 
 dunno
 
+**Will this be free?**
+
+This tweak will remain at the lowest possible price point I can find: $0.99 USD. I will not raise or lower the prices.
+
