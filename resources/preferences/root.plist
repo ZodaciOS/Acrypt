@@ -4,6 +4,14 @@
 <dict>
     <key>items</key>
     <array>
+        <!-- Header Section -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>headerCellClass</key>
+            <string>AcryptHeaderCell</string>
+        </dict>
+
         <!-- Master Switch -->
         <dict>
             <key>cell</key>
@@ -15,23 +23,23 @@
             <key>default</key>
             <true/>
             <key>icon</key>
-            <string>Acrypt.png</string>
+            <string>icon.png</string>
         </dict>
 
-        <!-- Authentication Section -->
+        <!-- Authentication -->
         <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>label</key>
-            <string>Authentication Methods</string>
+            <string>Authentication</string>
             <key>footerText</key>
-            <string>Requires Face ID/Touch ID-capable device</string>
+            <string>Settings apply globally</string>
         </dict>
         <dict>
             <key>cell</key>
             <string>PSSwitchCell</string>
             <key>label</key>
-            <string>Enable Face ID</string>
+            <string>Face ID</string>
             <key>key</key>
             <string>useFaceID</string>
             <key>default</key>
@@ -45,7 +53,7 @@
             <key>cell</key>
             <string>PSSwitchCell</string>
             <key>label</key>
-            <string>Enable Touch ID</string>
+            <string>Touch ID</string>
             <key>key</key>
             <string>useTouchID</string>
             <key>default</key>
@@ -55,39 +63,25 @@
             <key>requires</key>
             <string>enabled == 1</string>
         </dict>
-        <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>label</key>
-            <string>Passcode Fallback</string>
-            <key>key</key>
-            <string>usePasscode</string>
-            <key>default</key>
-            <true/>
-            <key>icon</key>
-            <string>passcode.png</string>
-            <key>requires</key>
-            <string>enabled == 1</string>
-        </dict>
 
         <!-- App Management -->
         <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>label</key>
-            <string>App Management</string>
+            <string>App Locking</string>
         </dict>
         <dict>
             <key>cell</key>
             <string>PSLinkCell</string>
             <key>label</key>
-            <string>Select Locked Apps</string>
+            <string>Manage Locked Apps</string>
             <key>detail</key>
             <string>PSListItemsController</string>
             <key>key</key>
             <string>lockedApps</string>
             <key>icon</key>
-            <string>apps.png</string>
+            <string>lock.png</string>
             <key>isController</key>
             <true/>
         </dict>
@@ -119,9 +113,9 @@
             <key>icon</key>
             <string>discord.png</string>
             <key>backgroundColor</key>
-            <string>#5865F2</string> <!-- Discord blurple -->
-            <key>iconColor</key>
-            <string>#FFFFFF</string> <!-- White icon -->
+            <string>#5865F2</string>
+            <key>height</key>
+            <integer>44</integer>
         </dict>
 
         <!-- Credits -->
@@ -129,9 +123,9 @@
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>footerText</key>
-            <string>Acrypt v1.0 · Developed by ZodaciOS · Powered by ElleKit</string>
+            <string>Acrypt v1.0 · Developed by YOU</string>
             <key>footerAlignment</key>
-            <integer>1</integer> <!-- Center aligned -->
+            <integer>1</integer>
         </dict>
     </array>
     <key>title</key>
