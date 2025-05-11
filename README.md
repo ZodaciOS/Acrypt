@@ -41,3 +41,6 @@ dunno
 
 This tweak will remain at the lowest possible price point I can find: $0.99 USD. I will not raise or lower the prices.
 
+**Is this compatiable with checkl0ck?**
+
+Checkl0ck will not be compatiable as this tweak uses real biometric entitlements instead of fake SEP.
