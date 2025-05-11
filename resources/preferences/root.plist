@@ -4,6 +4,7 @@
 <dict>
     <key>items</key>
     <array>
+        <!-- Master Switch -->
         <dict>
             <key>cell</key>
             <string>PSSwitchCell</string>
@@ -13,24 +14,124 @@
             <string>enabled</string>
             <key>default</key>
             <true/>
+            <key>icon</key>
+            <string>Acrypt.png</string>
         </dict>
+
+        <!-- Authentication Section -->
         <dict>
             <key>cell</key>
             <string>PSGroupCell</string>
             <key>label</key>
-            <string>Locked Apps</string>
+            <string>Authentication Methods</string>
+            <key>footerText</key>
+            <string>Requires Face ID/Touch ID-capable device</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>label</key>
+            <string>Enable Face ID</string>
+            <key>key</key>
+            <string>useFaceID</string>
+            <key>default</key>
+            <true/>
+            <key>icon</key>
+            <string>faceid.png</string>
+            <key>requires</key>
+            <string>enabled == 1</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>label</key>
+            <string>Enable Touch ID</string>
+            <key>key</key>
+            <string>useTouchID</string>
+            <key>default</key>
+            <true/>
+            <key>icon</key>
+            <string>touchid.png</string>
+            <key>requires</key>
+            <string>enabled == 1</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSSwitchCell</string>
+            <key>label</key>
+            <string>Passcode Fallback</string>
+            <key>key</key>
+            <string>usePasscode</string>
+            <key>default</key>
+            <true/>
+            <key>icon</key>
+            <string>passcode.png</string>
+            <key>requires</key>
+            <string>enabled == 1</string>
+        </dict>
+
+        <!-- App Management -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>App Management</string>
         </dict>
         <dict>
             <key>cell</key>
             <string>PSLinkCell</string>
             <key>label</key>
-            <string>Select Apps</string>
+            <string>Select Locked Apps</string>
             <key>detail</key>
             <string>PSListItemsController</string>
             <key>key</key>
             <string>lockedApps</string>
+            <key>icon</key>
+            <string>apps.png</string>
             <key>isController</key>
             <true/>
+        </dict>
+
+        <!-- Actions -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Actions</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>Respring</string>
+            <key>action</key>
+            <string>respring</string>
+            <key>icon</key>
+            <string>respring.png</string>
+        </dict>
+        <dict>
+            <key>cell</key>
+            <string>PSButtonCell</string>
+            <key>label</key>
+            <string>Join Discord</string>
+            <key>action</key>
+            <string>openDiscord</string>
+            <key>icon</key>
+            <string>discord.png</string>
+            <key>backgroundColor</key>
+            <string>#5865F2</string> <!-- Discord blurple -->
+            <key>iconColor</key>
+            <string>#FFFFFF</string> <!-- White icon -->
+        </dict>
+
+        <!-- Credits -->
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>footerText</key>
+            <string>Acrypt v1.0 · Developed by ZodaciOS · Powered by ElleKit</string>
+            <key>footerAlignment</key>
+            <integer>1</integer> <!-- Center aligned -->
         </dict>
     </array>
     <key>title</key>
