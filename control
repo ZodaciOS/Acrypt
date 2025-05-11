@@ -1,0 +1,9 @@
+Package: com.zodac.acrypt
+Name: Acrypt
+Depends: mobilesubstrate, ellekit, com.rpetrich.applist
+Architecture: iphoneos-arm64
+Description: Secure app locker for iOS 14 - 16.6.1 - rootless
+Maintainer: ZodaciOS
+Author: ZodaciOS
+Section: Tweaks
+Version: b1.0
