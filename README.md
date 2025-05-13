@@ -4,6 +4,7 @@
 
 This tweak is still in development & not released.
 
+MAKEFILE IS CURRENTLY BROKEN. RUNNING IN THEOS WILL GIVE ERRORS.
 
 <H1 align="center">Introduction</H1>
 
